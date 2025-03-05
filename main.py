@@ -32,7 +32,7 @@ with app.app_context():
 def home():
     return jsonify({"message": "Welcome to the Music API"})
 
-@app.route("/albums", methods=["GET"])
+@app.route("/albums", methods=["GET", "POST"])
 def get_artists():
     albums = Album.query.all()
 
