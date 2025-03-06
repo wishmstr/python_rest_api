@@ -32,7 +32,7 @@ with app.app_context():
 def home():
     return jsonify({"message": "Welcome to the Music API"})
 
-@app.route("/albums", methods=["GET", "POST"])
+@app.route("/albums", methods=["GET"])
 def get_artists():
     albums = Album.query.all()
 
@@ -51,9 +51,10 @@ def get_artist(artist_id):
 def add_album():    
     data= request.get_json()
 
-    new_album = Album(artist=data["artist"],
-                                  album=data["album"],
-                                  year=data["year"])
+    new_album = Album(
+        artist=data["artist"],
+        album=data["album"],
+        year=data["year"])
 
     db.session.add(new_album)
     db.session.commit()
@@ -69,8 +70,8 @@ def update_artist(artist_id):
     artist = Album.query.get(artist_id)
     if artist:
         artist.artist = data.get("artist", artist.artist)
-        artist.album = data.get("album", artist.country)
-        artist.year = data.get("year", artist.rating)
+        artist.album = data.get("album", artist.album)
+        artist.year = data.get("year", artist.year)
 
         db.session.commit()
 
